@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Amor 💙</title>
+
+<style>
+
+/* RESET TOTAL */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* 💙 FONDO MORADO UNIFORME */
+body{
+    font-family:'Segoe UI', sans-serif;
+    background:#6a0dad;
+    color:white;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* Páginas */
+.page{
+    display:none;
+    padding:80px 20px;
+    min-height:100vh;
+}
+
+.active{
+    display:block;
+}
+
+h1{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:22px;
+    max-width:800px;
+    margin:20px auto;
+}
+
+/* CONTADOR */
+#contador{
+    font-size:20px;
+    margin-bottom:30px;
+    font-weight:bold;
+}
+
+/* Botones */
+button{
+    padding:12px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:#9d4edd;
+    color:white;
+    margin:15px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#c77dff;
+    transform:scale(1.1);
+}
+
+/* Imagen sobre botones */
+.btn-img{
+    width:150px;
+    margin:20px auto;
+    display:block;
+}
+
+/* Carta */
+.carta-container{
+    perspective:1000px;
+    margin-top:30px;
+}
+
+.carta{
+    width:600px;
+    height:400px;
+    margin:auto;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 1s;
+}
+
+.carta.abierta{
+    transform:rotateX(180deg);
+}
+
+.frente, .dentro{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    border-radius:20px;
+}
+
+.frente{
+    background:#4c1d95;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:120px;
+    cursor:pointer;
+}
+
+.dentro{
+    background:white;
+    color:#4b0082;
+    transform:rotateX(180deg);
+    padding:40px;
+    box-sizing:border-box;
+    font-size:22px;
+    line-height:1.8;
+}
+
+/* 💙 CORAZONES AZULES */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:float 6s linear infinite;
+    color:#00b4ff;
+    z-index:1;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) scale(1);opacity:1;}
+    100%{transform:translateY(-110vh) scale(1.5);opacity:0;}
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .carta{
+        width:90%;
+        height:380px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PAGINA 1 -->
+<div class="page active" id="page1">
+    <h1>Para mi novia hermosa 💙</h1>
+    <p>
+        Aquí va tu mensaje emotivo personalizado 🥹💌
+    </p>
+    <button onclick="nextPage(2)">Siguiente 💕</button>
+</div>
+
+<!-- PAGINA 2 -->
+<div class="page" id="page2">
+    <h1>¿Quieres ser mi San Valentín? 💙</h1>
+
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="btn-img">
+
+    <div>
+        <button id="siBtn" onclick="irFinal()">SI 💙</button>
+        <button id="noBtn" onmouseover="moverNo()" onclick="fraseNo()">NO 😈</button>
+    </div>
+
+    <p id="fraseNo" style="margin-top:20px;font-weight:bold;"></p>
+</div>
+
+<!-- PAGINA 3 -->
+<div class="page" id="page3">
+    <h1>💙 ¡Te tengo una carta! 💙</h1>
+
+    <!-- CONTADOR DE AMOR -->
+    <div id="contador"></div>
+
+    <div class="carta-container">
+        <div class="carta" id="carta" onclick="abrirCarta()">
+            <div class="frente">💌</div>
+            <div class="dentro">
+                <h3>Para Mi Amor 💙</h3>
+                <p>
+                Desde que llegaste a mi vida todo es más bonito.<br><br>
+                Eres mi alegría, mi paz y mi lugar favorito.<br><br>
+                Gracias por existir y por elegirme cada día.<br><br>
+                Prometo seguir amándote siempre ❤️
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+function nextPage(num){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById("page"+num).classList.add("active");
+}
+
+function irFinal(){
+    nextPage(3);
+}
+
+/* CONTADOR DESDE 29/09/2024 */
+const fechaInicio = new Date("2024-09-29T00:00:00");
+
+function actualizarContador(){
+    const ahora = new Date();
+    const diferencia = ahora - fechaInicio;
+
+    const dias = Math.floor(diferencia / (1000*60*60*24));
+    const horas = Math.floor((diferencia / (1000*60*60)) % 24);
+    const minutos = Math.floor((diferencia / (1000*60)) % 60);
+    const segundos = Math.floor((diferencia / 1000) % 60);
+
+    document.getElementById("contador").innerHTML =
+    `💙 Llevamos juntos: ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos 💙`;
+}
+
+setInterval(actualizarContador,1000);
+actualizarContador();
+
+/* BOTON NO */
+const frases=[
+"¿Segura? 🥺",
+"Piensa bien... 😏",
+"Intenta otra vez 😌",
+"Sabes que quieres decir que sí 😘",
+"Vamos... presiona SI 💙"
+];
+
+let contador=0;
+
+function moverNo(){
+    const btn=document.getElementById("noBtn");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"%";
+    btn.style.top=Math.random()*70+"%";
+}
+
+function fraseNo(){
+    const texto=document.getElementById("fraseNo");
+    texto.innerText=frases[contador%frases.length];
+    contador++;
+}
+
+/* CORAZONES */
+function crearCorazon(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💙";
+    heart.style.left=Math.random()*100+"%";
+    heart.style.fontSize=(15+Math.random()*20)+"px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },6000);
+}
+
+setInterval(crearCorazon,300);
+
+/* CARTA */
+function abrirCarta(){
+    document.getElementById("carta").classList.toggle("abierta");
+}
+
+</script>
+
+</body>
+</html>
